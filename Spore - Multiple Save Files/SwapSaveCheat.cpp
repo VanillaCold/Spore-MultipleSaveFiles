@@ -4,6 +4,8 @@
 SwapSaveCheat::SwapSaveCheat()
 {
 	hasSwapped = false;
+	App::AddUpdateFunction(this);
+	timer = 0;
 }
 
 
@@ -26,6 +28,7 @@ void SwapSaveCheat::ParseLine(const ArgScript::Line& line)
 	{
 		Resource::Paths::CreateSaveAreaDirectoryDatabase(Resource::PathID::AppData, directory.c_str(), saveDatabase, Resource::SaveAreaID::GamesGame0);
 		hasSwapped = true;
+		timer = 5;
 		GameModeManager.SetActiveMode(GameModeIDs::kGameCell);
 	}
 	else
@@ -38,6 +41,21 @@ void SwapSaveCheat::ParseLine(const ArgScript::Line& line)
 
 DatabaseDirectoryFilesPtr SwapSaveCheat::saveDatabase;
 
+void SwapSaveCheat::Update()
+{
+	if (!hasSwapped)
+	{
+		timer = 0;
+		return;
+	}
+	timer--;
+	if (timer == 0)
+	{
+		hasSwapped = false;
+		GameModeManager.SetActiveMode(GameModeIDs::kGGEMode);
+	}
+}
+
 const char* SwapSaveCheat::GetDescription(ArgScript::DescriptionMode mode) const
 {
 	if (mode == ArgScript::DescriptionMode::Basic) {
@@ -47,3 +65,15 @@ const char* SwapSaveCheat::GetDescription(ArgScript::DescriptionMode mode) const
 		return "SwapSaveCheat: Elaborate description of what this cheat does.";
 	}
 }
+
+
+int SwapSaveCheat::AddRef()
+{
+	return IParser::AddRef();
+}
+
+int SwapSaveCheat::Release()
+{
+	return IParser::Release();
+}
+
