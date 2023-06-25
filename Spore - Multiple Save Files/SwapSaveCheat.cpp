@@ -59,10 +59,10 @@ void SwapSaveCheat::Update()
 const char* SwapSaveCheat::GetDescription(ArgScript::DescriptionMode mode) const
 {
 	if (mode == ArgScript::DescriptionMode::Basic) {
-		return "This cheat does something.";
+		return "Cheat to swap the main galaxy save.";
 	}
 	else {
-		return "SwapSaveCheat: Elaborate description of what this cheat does.";
+		return "SwapSaveCheat: This cheat swaps the master 'galaxy' save of the game.\nUsage: swapSaveCheat [save_number]\nThe default save number is 0.";
 	}
 }
 
