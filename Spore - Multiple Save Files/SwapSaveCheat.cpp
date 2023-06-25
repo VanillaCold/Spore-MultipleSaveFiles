@@ -28,7 +28,7 @@ void SwapSaveCheat::ParseLine(const ArgScript::Line& line)
 	{
 		Resource::Paths::CreateSaveAreaDirectoryDatabase(Resource::PathID::AppData, directory.c_str(), saveDatabase, Resource::SaveAreaID::GamesGame0);
 		hasSwapped = true;
-		timer = 5;
+		timer = 2;
 		GameModeManager.SetActiveMode(GameModeIDs::kGameCell);
 	}
 	else
@@ -43,16 +43,14 @@ DatabaseDirectoryFilesPtr SwapSaveCheat::saveDatabase;
 
 void SwapSaveCheat::Update()
 {
-	if (!hasSwapped)
+	if (hasSwapped)
 	{
-		timer = 0;
-		return;
-	}
-	timer--;
-	if (timer == 0)
-	{
-		hasSwapped = false;
-		GameModeManager.SetActiveMode(GameModeIDs::kGGEMode);
+		timer --;
+		if (timer == 0)
+		{
+			hasSwapped = false;
+			GameModeManager.SetActiveMode(GameModeIDs::kGGEMode);
+		}
 	}
 }
 
