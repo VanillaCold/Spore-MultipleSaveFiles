@@ -20,15 +20,12 @@ void SwapSaveCheat::ParseLine(const ArgScript::Line& line)
 	auto arguments = line.GetArguments(1);
 	int ID = mpFormatParser->ParseInt(arguments[0]);
 
-	string16 directory;
-
 	directory.assign_convert(to_string(ID));
 	directory = u"Games/Game" + directory;
 	if (GameModeManager.GetActiveModeID() == GameModeIDs::kGGEMode)
 	{
-		Resource::Paths::CreateSaveAreaDirectoryDatabase(Resource::PathID::AppData, directory.c_str(), saveDatabase, Resource::SaveAreaID::GamesGame0);
 		hasSwapped = true;
-		timer = 2;
+		timer = 5;
 		GameModeManager.SetActiveMode(GameModeIDs::kGameCell);
 	}
 	else
@@ -45,9 +42,10 @@ void SwapSaveCheat::Update()
 {
 	if (hasSwapped)
 	{
-		timer --;
+		timer -= 1/GameTimeManager.GetSpeed();
 		if (timer == 0)
 		{
+			Resource::Paths::CreateSaveAreaDirectoryDatabase(Resource::PathID::AppData, directory.c_str(), saveDatabase, Resource::SaveAreaID::GamesGame0);
 			hasSwapped = false;
 			GameModeManager.SetActiveMode(GameModeIDs::kGGEMode);
 		}

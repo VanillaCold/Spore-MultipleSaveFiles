@@ -27,6 +27,7 @@ static_detour(SetSaveDetour, Resource::Database* (Resource::SaveAreaID))
 		{
 			return SwapSaveCheat::saveDatabase.get();
 		}
+
 		return original_function(area);
 	}
 };

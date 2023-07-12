@@ -13,7 +13,7 @@ public:
 	// Called when the cheat is invoked
 	void ParseLine(const ArgScript::Line& line) override;
 	bool hasSwapped;
-	int timer;
+	float timer;
 
 	static DatabaseDirectoryFilesPtr saveDatabase;
 
@@ -21,6 +21,7 @@ public:
 
 	virtual int AddRef() override;
 	virtual int Release() override;
+	string16 directory;
 	
 	// Returns a string containing the description. If mode != DescriptionMode::Basic, return a more elaborated description
 	const char* GetDescription(ArgScript::DescriptionMode mode) const override;
