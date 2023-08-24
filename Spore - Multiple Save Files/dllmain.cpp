@@ -4,13 +4,7 @@
 
 void Initialize()
 {
-	// This method is executed when the game starts, before the user interface is shown
-	// Here you can do things such as:
-	//  - Add new cheats
-	//  - Add new simulator classes
-	//  - Add new game modes
-	//  - Add new space tools
-	//  - Change materials
+	// Just add the new cheat.
 	CheatManager.AddCheat("setSaveFile", new SwapSaveCheat());
 }
 
@@ -21,22 +15,21 @@ void Dispose()
 
 static_detour(SetSaveDetour, Resource::Database* (Resource::SaveAreaID))
 {
-	Resource::Database* detoured(Resource::SaveAreaID area)
+	Resource::Database* detoured(Resource::SaveAreaID area) //Detour the function that gets a database from a save area code
 	{
-		if (area == Resource::SaveAreaID::GamesGame0 && SwapSaveCheat::saveDatabase != nullptr)
+		if (area == Resource::SaveAreaID::GamesGame0 && SwapSaveCheat::saveDatabase != nullptr) //Check if the save area is Game0; if it is, and we have a specified override, we do stuff.
 		{
-			return SwapSaveCheat::saveDatabase.get();
+			return SwapSaveCheat::saveDatabase.get(); //Instead of returning the original value, we return the custom database pointer.
 		}
 
-		return original_function(area);
+		return original_function(area); //If we can't override it for any reason, return the original function's return value instead.
 	}
 };
 
 void AttachDetours()
 {
+	//Attach the detour to the GetSaveArea function.
 	SetSaveDetour::attach(GetAddress(Resource::Paths, GetSaveArea));
-	// Call the attach() method on any detours you want to add
-	// For example: cViewer_SetRenderType_detour::attach(GetAddress(cViewer, SetRenderType));
 }
 
 
