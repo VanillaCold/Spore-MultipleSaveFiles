@@ -1,4 +1,4 @@
-# Spore - MultipleSaveFiles
+# Spore - Swap Save File
 A mod for Spore that allows for there to be multiple "master" save files; i.e, the galaxy that hosts all saves on a computer.
 
 By default, Spore only has one "master" save slot; the Game0 folder in the game's appdata directory.  
