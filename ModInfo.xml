@@ -1,3 +1,3 @@
-<mod displayName="Multiple Galaxy Saves" unique="MultipleSaveFilesCheat" description="This mod adds a cheat to allow players to swap to alternate 'master' save files." installerSystemVersion="1.0.1.1" hasCustomInstaller="false" dllsBuild="2.5.278">
+<mod displayName="Multiple Galaxy Saves" unique="MultipleSaveFilesCheat" description="This mod adds a cheat to allow players to swap to alternate 'master' save files." installerSystemVersion="1.0.1.2" hasCustomInstaller="false" dllsBuild="2.5.277">
 	<prerequisite>Spore - Multiple Save Files.dll</prerequisite>
 </mod>
